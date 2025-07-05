@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="taskLogger" class="org.example.tasktracker.TaskLogger" scope="prototype" />
+
+    <bean id="taskService" class="org.example.tasktracker.TaskService">
+        <property name="taskLogger" ref="taskLogger" />
+    </bean>
+<!--    🤔 Why we mix prototype and singleton-->
+<!--    Like in your project:-->
+
+<!--    TaskService is singleton → we want just one service managing tasks-->
+
+<!--    TaskLogger is prototype → you might want a fresh logger per task-->
+
+<!--    But because Spring injects the logger once, even prototype acts like singleton inside taskService.-->
+
+<!--    So we choose what to reuse and what to refresh — based on:-->
+
+<!--    ✅ Memory-->
+<!--    ✅ Purpose-->
+<!--    ✅ Performance-->
+</beans>
